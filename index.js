@@ -45,7 +45,8 @@ app.post("/create", function(req, res){
 		data.hash = hashVariable;
 		data.save().done(function(err1, data2) {
 			// res.send(data2);
-			res.render("create",{data2:data2});
+				// res.send(req.headers.host)
+			res.render("create",{"myHost":req.headers.host,data2:data2});
 			console.log(data2);
 		});
 	})
