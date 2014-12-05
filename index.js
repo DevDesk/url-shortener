@@ -17,6 +17,27 @@ app.get("/", function(req, res) {
 	res.render("index");
 });
 
+
+// var models = require("./models");
+ 
+// models.Urls.findOrCreate({where:{url:"testurl654"}}).done(function(err,myUrl,isThisABrandNewRecord){
+ 
+//     console.log('--------- WAS CREATED:',isThisABrandNewRecord);
+ 
+//     //if it was isThisABrandNewRecord CREATE HASH
+//     if(isThisABrandNewRecord){
+//         myUrl.hash="testhash";
+//         myUrl.save().done(function(err,savedObject){
+//             console.log('--------- GENERATED HASH!!',savedObject.hash);
+//             //res.render
+//         });
+//     }else{
+//         //res.render
+//         console.log('--------- ALREADY HAS HASH!!',myUrl.hash)
+//     }
+// });
+
+
 app.post("/create", function(req, res){
 	// res.send(req.body);
 	db.Url.create(req.body).done(function(err, data) {
@@ -31,7 +52,7 @@ app.post("/create", function(req, res){
 });
 
 app.get("/:hash2", function(req, res){
-	db.Url.find({where: {hash:req.params.hash2}}).done(function(err,data){
+	db.Url.find({where: {'hash':req.params.hash2}}).done(function(err,data){
 		// console.log(data.url);
 		if (data.url.substring(0, 7) == "http://") {
 			res.redirect(data.url);
@@ -43,6 +64,4 @@ app.get("/:hash2", function(req, res){
 
 
 
-app.listen(3000, function(){
-	console.log("Ready to go on 3000!");
-})
+app.listen(process.env.PORT || 3000);
